@@ -13,7 +13,7 @@ var app = builder
        .ConfigureServices()
        .ConfigurePipeline();
 
-await app.ResetDatabaseAsync();
+//await app.ResetDatabaseAsync();
 
 app.Run();
 

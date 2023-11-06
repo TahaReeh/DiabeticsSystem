@@ -12,7 +12,6 @@
 
   <ItemGroup>
     <Folder Include="Features\PatientMovements\Commands\" />
-    <Folder Include="Features\PatientMovements\Queries\" />
   </ItemGroup>
 
   <ItemGroup>

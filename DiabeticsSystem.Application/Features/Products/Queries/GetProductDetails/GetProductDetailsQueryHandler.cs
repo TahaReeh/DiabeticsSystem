@@ -23,7 +23,7 @@ namespace DiabeticsSystem.Application.Features.Products.Queries.GetProductDetail
         public async Task<ProductDetailsVM> Handle(GetProductDetailsQuery request, CancellationToken cancellationToken)
         {
             var obj = await _unitOfWork.Product.GetAsync(u => u.Id == request.ProductId);
-            return _mapper.Map<ProductDetailsVM>(request);
+            return _mapper.Map<ProductDetailsVM>(obj);
         }
     }
 }
