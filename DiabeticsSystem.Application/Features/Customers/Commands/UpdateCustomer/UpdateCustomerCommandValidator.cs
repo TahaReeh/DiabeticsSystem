@@ -30,12 +30,12 @@ namespace DiabeticsSystem.Application.Features.Customers.Commands.UpdateCustomer
 
         private async Task<bool> CustomerNameUnique(UpdateCustomerCommand e, CancellationToken token)
         {
-            var replica = await _unitOfWork.Customer.GetAsync(x => x.Name == e.Name);
+            var replica = await _unitOfWork.Customer.GetAsync(x => x.Name == e.Name && x.Id != e.Id);
             if (replica is not null)
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
     }
 }

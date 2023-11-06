@@ -1,4 +1,5 @@
 ﻿using DiabeticsSystem.Domain.Common;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DiabeticsSystem.Domain.Entities
 {
@@ -12,6 +13,7 @@ namespace DiabeticsSystem.Domain.Entities
         public string? Email { get; set; }
         public string? Address { get; set; } 
         public string? PersonalId { get; set; }
+        [Column("BirthDate", TypeName= "date")]
         public DateTime BirthDate { get; set; }
         public int Sex { get; set; }
     }

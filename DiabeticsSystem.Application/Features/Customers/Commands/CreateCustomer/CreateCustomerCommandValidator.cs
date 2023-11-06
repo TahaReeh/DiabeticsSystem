@@ -26,17 +26,17 @@ namespace DiabeticsSystem.Application.Features.Customers.Commands.CreateCustomer
 
             RuleFor(e => e)
                .MustAsync(CustomerNameUnique)
-               .WithMessage("A customer with the same name already exists.");
+               .WithMessage("A customer with the same name or personal identity already exists.");
         }
 
         private async Task<bool> CustomerNameUnique(CreateCustomerCommand e, CancellationToken token)
         {
-            var replica = await _unitOfWork.Customer.GetAsync(x => x.Name == e.Name);
+            var replica = await _unitOfWork.Customer.GetAsync(x => x.Name == e.Name && x.PersonalId == e.PersonalId);
             if (replica is not null)
             {
-                return true;
+                return false;
             }
-            return false;
+            return true;
         }
     }
 }

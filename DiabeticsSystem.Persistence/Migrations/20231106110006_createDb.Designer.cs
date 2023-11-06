@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DiabeticsSystem.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231106002430_createDb")]
+    [Migration("20231106110006_createDb")]
     partial class createDb
     {
         /// <inheritdoc />
@@ -35,7 +35,8 @@ namespace DiabeticsSystem.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date")
+                        .HasColumnName("BirthDate");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");

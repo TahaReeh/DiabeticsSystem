@@ -32,7 +32,8 @@ namespace DiabeticsSystem.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date")
+                        .HasColumnName("BirthDate");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
