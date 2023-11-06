@@ -1,15 +1,67 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DiabeticsSystem.Application.Features.Customers.Commands.CreateCustomer;
+using DiabeticsSystem.Application.Features.Customers.Commands.DeleteCustomer;
+using DiabeticsSystem.Application.Features.Customers.Commands.UpdateCustomer;
+using DiabeticsSystem.Application.Features.Customers.Queries.GetCustomerDetails;
+using DiabeticsSystem.Application.Features.Customers.Queries.GetCustomerList;
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DiabeticsSystem.API.Controllers
 {
 
     [ApiController]
     [Route("api/[controller]")]
-    public class CustomerController : Controller
+    public class CustomerController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly IMediator _mediator;
+
+        public CustomerController(IMediator mediator)
         {
-            return View();
+            _mediator = mediator;
+        }
+
+        [HttpGet(Name ="GetAllCustomers")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult<List<CustomerListVM>>> GetAllCustomers()
+        {
+            var dtos = await _mediator.Send(new GetCustomerListQuery());
+            return Ok(dtos);
+        }
+
+        [HttpGet("{id}",Name ="GetCustomer")]
+        public async Task<ActionResult<CustomerDetailsVM>> GetCustomer(Guid id)
+        {
+            var getCustomerDetailQuery = new GetCustomerDetailsQuery() { Id = id};
+            return Ok(await _mediator.Send(getCustomerDetailQuery));
+        }
+
+        [HttpPost(Name ="UpdateCustomer")]
+        public async Task<ActionResult<Guid>> Create([FromBody] CreateCustomerCommand createCustomerCommand)
+        {
+            var id = await _mediator.Send(createCustomerCommand);
+            return Ok(id);
+        }
+
+        [HttpPut(Name ="UpdateCustomer")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> Update([FromBody] UpdateCustomerCommand updateCustomerCommand)
+        {
+            await _mediator.Send(updateCustomerCommand);
+            return NoContent();
+        }
+
+        [HttpDelete("{id}",Name ="DeleteCustomer")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType (StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            var deleteCustomerCommand = new DeleteCustomerCommand() { Id = id };
+            await _mediator.Send(deleteCustomerCommand);
+            return NoContent();
         }
     }
 }

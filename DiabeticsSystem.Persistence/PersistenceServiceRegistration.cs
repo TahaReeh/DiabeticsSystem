@@ -8,7 +8,7 @@ namespace DiabeticsSystem.Persistence
 {
     public static class PersistenceServiceRegistration
     {
-        public static IServiceCollection AddPersistenceServices(IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddPersistenceServices(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString
