@@ -20,7 +20,7 @@ namespace DiabeticsSystem.API.Controllers
             _mediator = mediator;
         }
 
-        [HttpGet(Name ="GetAllCustomers")]
+        [HttpGet("GetAllCustomers")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesDefaultResponseType]
         public async Task<ActionResult<List<CustomerListVM>>> GetAllCustomers()
@@ -29,21 +29,21 @@ namespace DiabeticsSystem.API.Controllers
             return Ok(dtos);
         }
 
-        [HttpGet("{id}",Name ="GetCustomer")]
+        [HttpGet("GetCustomer")]
         public async Task<ActionResult<CustomerDetailsVM>> GetCustomer(Guid id)
         {
             var getCustomerDetailQuery = new GetCustomerDetailsQuery() { Id = id};
             return Ok(await _mediator.Send(getCustomerDetailQuery));
         }
 
-        [HttpPost(Name ="UpdateCustomer")]
+        [HttpPost("CreateCustomer")]
         public async Task<ActionResult<Guid>> Create([FromBody] CreateCustomerCommand createCustomerCommand)
         {
             var id = await _mediator.Send(createCustomerCommand);
             return Ok(id);
         }
 
-        [HttpPut(Name ="UpdateCustomer")]
+        [HttpPut("UpdateCustomer")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]
@@ -53,7 +53,7 @@ namespace DiabeticsSystem.API.Controllers
             return NoContent();
         }
 
-        [HttpDelete("{id}",Name ="DeleteCustomer")]
+        [HttpDelete("DeleteCustomer")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType (StatusCodes.Status404NotFound)]
         [ProducesDefaultResponseType]

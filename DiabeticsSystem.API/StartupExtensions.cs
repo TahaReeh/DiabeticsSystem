@@ -37,7 +37,7 @@ namespace DiabeticsSystem.API
                 
             }
             app.UseHttpsRedirection();
-            //app.UseRouting();
+            app.UseRouting();
             //app.UseAuthentication();
             app.UseCustomExceptionHandler();
             app.UseCors("Open");
@@ -103,11 +103,11 @@ namespace DiabeticsSystem.API
         //        c.SwaggerDoc("v1", new OpenApiInfo
         //        {
         //            Version = "v1",
-        //            Title = "GloboTicket Ticket Management API",
+        //            Title = "Diabetics System API",
 
         //        });
 
-        //        c.OperationFilter<FileResultContentTypeOperationFilter>();
+        //        //c.OperationFilter<FileResultContentTypeOperationFilter>();
         //    });
         //}
 
