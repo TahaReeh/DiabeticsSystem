@@ -16,7 +16,7 @@ namespace DiabeticsSystem.Application.Features.Customers.Commands.CreateCustomer
 
         public override string ToString()
         {
-            return $"Custoomer Name: {Name}; Number: {Number}; PhoneNumber: {Phone}";
+            return $"Customer Name: {Name}; Number: {Number}; PhoneNumber: {Phone}";
         }
     }
 }

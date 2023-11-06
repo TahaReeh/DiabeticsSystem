@@ -16,7 +16,7 @@ namespace DiabeticsSystem.Application.Features.Customers.Queries.GetCustomerList
         }
         public async Task<List<CustomerListVM>> Handle(GetCustomerListQuery request, CancellationToken cancellationToken)
         {
-            var customerList = (await _unitOfWork.Customer.GetAllAsync()).OrderBy(x => x.CreatedDate);
+            var customerList = (await _unitOfWork.Customer.GetAllAsync()).OrderBy(x => x.Number);
             return _mapper.Map<List<CustomerListVM>>(customerList);
         }
     }

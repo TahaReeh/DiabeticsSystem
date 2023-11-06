@@ -11,8 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\PatientMovements\" />
-    <Folder Include="Features\Products\" />
+    <Folder Include="Features\PatientMovements\Commands\" />
+    <Folder Include="Features\PatientMovements\Queries\" />
   </ItemGroup>
 
   <ItemGroup>
