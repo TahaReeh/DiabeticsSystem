@@ -23,7 +23,8 @@ namespace DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatie
 
         public async Task<List<PatientMovmentByCustomerVM>> Handle(GetPatientMovmentByCustomerQuery request, CancellationToken cancellationToken)
         {
-            var listByCustomer = await _unitOfWork.PatientMovement.GetAllAsync(u => u.CustomerId == request.CustomerId)
+            var listByCustomer = await _unitOfWork.PatientMovement.GetAllAsync(
+                u => u.CustomerId == request.CustomerId,includeProperties:"Customer")
                 ?? throw new Exceptions.NotFoundException(nameof(Customer), request.CustomerId);
 
             var dtos = _mapper.Map<List<PatientMovmentByCustomerVM>>(listByCustomer);
