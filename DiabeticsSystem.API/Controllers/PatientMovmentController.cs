@@ -1,4 +1,5 @@
-﻿using DiabeticsSystem.Application.Features.Customers.Queries.GetCustomerList;
+﻿using DiabeticsSystem.Application.Features.PatientMovements.Commands.CreatePatientMovement;
+using DiabeticsSystem.Application.Features.PatientMovements.Commands.DeletePatientMovement;
 using DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatientMovmentByCustomer;
 using DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatientMovmentList;
 using MediatR;
@@ -33,6 +34,24 @@ namespace DiabeticsSystem.API.Controllers
         {
             var dtos = await _mediator.Send(new GetPatientMovmentByCustomerQuery() { CustomerId = customerId });
             return Ok(dtos);
+        }
+
+        [HttpPost("CreatePatientMovment")]
+        public async Task<ActionResult<Guid>> Create([FromBody] CreatePatientMovementCommand createPatientMovmentCommand)
+        {
+            var id = await _mediator.Send(createPatientMovmentCommand);
+            return Ok(id);
+        }
+
+        [HttpDelete("DeletePatientMovment")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesDefaultResponseType]
+        public async Task<ActionResult> Delete(Guid id)
+        {
+            var deletePatientMovementCommand = new DeletePatientMovementCommand() { PatientMovementId = id };
+            await _mediator.Send(deletePatientMovementCommand);
+            return NoContent();
         }
     }
 }

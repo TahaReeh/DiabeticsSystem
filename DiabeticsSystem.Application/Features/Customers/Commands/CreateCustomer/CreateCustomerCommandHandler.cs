@@ -19,7 +19,7 @@ namespace DiabeticsSystem.Application.Features.Customers.Commands.CreateCustomer
         public async Task<Guid> Handle(CreateCustomerCommand request, CancellationToken cancellationToken)
         {
             var validator = new CreateCustomerCommandValidator(_unitOfWork);
-            var validationResult = await validator.ValidateAsync(request);
+            var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
             if (validationResult.Errors.Count > 0)
                 throw new Exceptions.ValidationException(validationResult);
