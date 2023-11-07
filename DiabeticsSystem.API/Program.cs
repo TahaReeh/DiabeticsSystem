@@ -1,11 +1,19 @@
 using DiabeticsSystem.API;
+using Serilog;
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
+
+Log.Information("Diabetics API Started");
 
 var builder = WebApplication.CreateBuilder(args);
-
 // Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Host.UseSerilog((context, loggerConfiguration) => loggerConfiguration
+.WriteTo.Console()
+.ReadFrom.Configuration(context.Configuration));
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -13,6 +21,7 @@ var app = builder
        .ConfigureServices()
        .ConfigurePipeline();
 
+app.UseSerilogRequestLogging();
 //await app.ResetDatabaseAsync();
 
 app.Run();
