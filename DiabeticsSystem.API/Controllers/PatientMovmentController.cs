@@ -1,6 +1,8 @@
-﻿using DiabeticsSystem.Application.Features.PatientMovements.Commands.CreatePatientMovement;
+﻿using DiabeticsSystem.API.Utility;
+using DiabeticsSystem.Application.Features.PatientMovements.Commands.CreatePatientMovement;
 using DiabeticsSystem.Application.Features.PatientMovements.Commands.DeletePatientMovement;
 using DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatientMovmentByCustomer;
+using DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatientMovmentExport;
 using DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatientMovmentList;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -52,6 +54,15 @@ namespace DiabeticsSystem.API.Controllers
             var deletePatientMovementCommand = new DeletePatientMovementCommand() { PatientMovementId = id };
             await _mediator.Send(deletePatientMovementCommand);
             return NoContent();
+        }
+
+        [HttpGet("ExportAllPatientMovments")]
+        [FileResultContentType("text/csv")]
+        public async Task<FileResult> ExportAllPatientMovments()
+        {
+            var fileDto = await _mediator.Send(new GetPatientMovementExportQuery());
+
+            return File(fileDto.Data!, fileDto.ContentType, fileDto.PatientMovementExportFileName);
         }
     }
 }

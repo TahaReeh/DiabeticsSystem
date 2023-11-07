@@ -6,6 +6,7 @@ using DiabeticsSystem.Application.Features.Customers.Queries.GetCustomerList;
 using DiabeticsSystem.Application.Features.PatientMovements.Commands.CreatePatientMovement;
 using DiabeticsSystem.Application.Features.PatientMovements.Commands.DeletePatientMovement;
 using DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatientMovmentByCustomer;
+using DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatientMovmentExport;
 using DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatientMovmentList;
 using DiabeticsSystem.Application.Features.Products.Commands.CreateProduct;
 using DiabeticsSystem.Application.Features.Products.Commands.UpdateProduct;
@@ -35,6 +36,7 @@ namespace DiabeticsSystem.Application.Profiles
             CreateMap<PatientMovement, PatientMovmentListVM>();
             CreateMap<PatientMovement, PatientMovmentByCustomerVM>();
             CreateMap<PatientMovement, CreatePatientMovementCommand>().ReverseMap();
+            CreateMap<PatientMovement, PatientMovementExportDTO>().ReverseMap();
         }
 
     }

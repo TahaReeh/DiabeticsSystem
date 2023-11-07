@@ -2,7 +2,7 @@
 using DiabeticsSystem.Application;
 using DiabeticsSystem.Persistence;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
+using DiabeticsSystem.Infrastructure;
 
 namespace DiabeticsSystem.API
 {
@@ -16,6 +16,7 @@ namespace DiabeticsSystem.API
 
             builder.Services.AddApplicationServices();
             builder.Services.AddPersistenceServices(builder.Configuration);
+            builder.Services.AddInfrastructureServices(builder.Configuration);
 
             builder.Services.AddHttpContextAccessor();
             builder.Services.AddControllers();
