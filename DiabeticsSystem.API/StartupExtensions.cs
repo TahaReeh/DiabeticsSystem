@@ -25,7 +25,8 @@ namespace DiabeticsSystem.API
                 options.AddPolicy("Open", builder => builder
                 .AllowAnyOrigin()
                 .AllowAnyHeader()
-                .AllowAnyMethod());
+                .AllowAnyMethod()
+                );
             });
 
             return builder.Build();
@@ -37,7 +38,7 @@ namespace DiabeticsSystem.API
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-                
+
             }
             app.UseHttpsRedirection();
             app.UseRouting();
