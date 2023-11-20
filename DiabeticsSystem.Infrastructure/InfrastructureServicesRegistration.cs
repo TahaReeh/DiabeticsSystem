@@ -11,6 +11,7 @@ namespace DiabeticsSystem.Infrastructure
             this IServiceCollection services, IConfiguration configuration)
         {
             services.AddTransient<ICsvExport, CsvExport>();
+            services.AddTransient<IRdlcReport, RdlcReport>();
 
             return services;
         }

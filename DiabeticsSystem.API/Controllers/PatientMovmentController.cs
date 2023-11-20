@@ -1,4 +1,5 @@
-﻿using DiabeticsSystem.API.Utility;
+﻿using AspNetCore.Reporting;
+using DiabeticsSystem.API.Utility;
 using DiabeticsSystem.Application.Features.PatientMovements.Commands.CreatePatientMovement;
 using DiabeticsSystem.Application.Features.PatientMovements.Commands.DeletePatientMovement;
 using DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatientMovmentByCustomer;
@@ -6,6 +7,7 @@ using DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatientMo
 using DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatientMovmentList;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Text;
 
 namespace DiabeticsSystem.API.Controllers
 {
@@ -14,10 +16,12 @@ namespace DiabeticsSystem.API.Controllers
     public class PatientMovmentController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public PatientMovmentController(IMediator mediator)
+        public PatientMovmentController(IMediator mediator, IWebHostEnvironment webHostEnvironment)
         {
             _mediator = mediator;
+            _webHostEnvironment = webHostEnvironment;
         }
 
         [HttpGet("GetAllPatientsMovments")]
@@ -56,11 +60,24 @@ namespace DiabeticsSystem.API.Controllers
             return NoContent();
         }
 
-        [HttpGet("ExportAllPatientMovments")]
+        [HttpGet("ExportPatientMovmentsToCSV")]
         [FileResultContentType("text/csv")]
         public async Task<FileResult> ExportAllPatientMovments()
         {
-            var fileDto = await _mediator.Send(new GetPatientMovementExportQuery());
+            var fileDto = await _mediator.Send(new GetPatientMovementExportQuery() { ExportType = 1 });
+
+            return File(fileDto.Data!, fileDto.ContentType, fileDto.PatientMovementExportFileName);
+        }
+
+        [HttpGet("ExportAllPatientMovmentsToPDF")]
+        [FileResultContentType("application/pdf")]
+        public async Task<FileResult> ExportAllPatientMovmentsToPDF()
+        {
+            var fileDto = await _mediator.Send(new GetPatientMovementExportQuery()
+            {
+                ExportType = 2,
+                Path = $"{_webHostEnvironment.WebRootPath}\\Reports\\PatientMovmentsReport.rdlc"
+            });
 
             return File(fileDto.Data!, fileDto.ContentType, fileDto.PatientMovementExportFileName);
         }

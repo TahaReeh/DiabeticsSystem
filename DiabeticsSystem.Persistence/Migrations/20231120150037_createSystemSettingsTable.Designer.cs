@@ -4,6 +4,7 @@ using DiabeticsSystem.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DiabeticsSystem.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231120150037_createSystemSettingsTable")]
+    partial class createSystemSettingsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -170,8 +173,9 @@ namespace DiabeticsSystem.Persistence.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("AccentColor")
-                        .HasColumnType("int");
+                    b.Property<string>("AccentColor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDark")
                         .HasColumnType("bit");
@@ -188,7 +192,7 @@ namespace DiabeticsSystem.Persistence.Migrations
                         new
                         {
                             Id = new Guid("b0788d2f-8003-43c1-92a4-edc76a7c5dde"),
-                            AccentColor = 0,
+                            AccentColor = "default",
                             IsDark = false,
                             UserId = "UserId"
                         });

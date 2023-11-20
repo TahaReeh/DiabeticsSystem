@@ -3,6 +3,7 @@ using DiabeticsSystem.Application;
 using DiabeticsSystem.Persistence;
 using Microsoft.EntityFrameworkCore;
 using DiabeticsSystem.Infrastructure;
+using DiabeticsSystem.Persistence.DbInitializers;
 
 namespace DiabeticsSystem.API
 {
@@ -68,6 +69,13 @@ namespace DiabeticsSystem.API
                 var logger = scope.ServiceProvider.GetRequiredService<ILogger>();
                 logger.LogError(ex, "An error occurred while migrating the database.");
             }
+        }
+
+        public static async Task SeedDatabase(this WebApplication app)
+        {
+            using var scope = app.Services.CreateScope();
+            var dbInitializer = scope.ServiceProvider.GetRequiredService<IDbInitializer>();
+           await dbInitializer.InitializeAsync();
         }
 
     }

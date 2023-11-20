@@ -12,6 +12,8 @@ using DiabeticsSystem.Application.Features.Products.Commands.CreateProduct;
 using DiabeticsSystem.Application.Features.Products.Commands.UpdateProduct;
 using DiabeticsSystem.Application.Features.Products.Queries.GetProductDetails;
 using DiabeticsSystem.Application.Features.Products.Queries.GetProductList;
+using DiabeticsSystem.Application.Features.SystemSettings.Commands;
+using DiabeticsSystem.Application.Features.SystemSettings.Queries.GetSystemSettings;
 using DiabeticsSystem.Domain.Entities;
 
 namespace DiabeticsSystem.Application.Profiles
@@ -37,6 +39,9 @@ namespace DiabeticsSystem.Application.Profiles
             CreateMap<PatientMovement, PatientMovmentByCustomerVM>();
             CreateMap<PatientMovement, CreatePatientMovementCommand>().ReverseMap();
             CreateMap<PatientMovement, PatientMovementExportDTO>().ReverseMap();
+
+            CreateMap<SystemSetting, SystemSettingsVM>();
+            CreateMap<SystemSetting, UpdateSystemSettingsCommand>().ReverseMap();
         }
 
     }
