@@ -44,7 +44,8 @@ namespace DiabeticsSystem.Persistence
                     Id = Guid.Parse("{B0788D2F-8003-43C1-92A4-EDC76A7C5DDE}"),
                     UserId = "UserId",
                     AccentColor = 16,
-                    IsDark = false
+                    IsDark = false,
+                    Notes = ""
                 });
         }
     }

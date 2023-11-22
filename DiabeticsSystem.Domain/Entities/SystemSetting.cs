@@ -12,5 +12,6 @@ namespace DiabeticsSystem.Domain.Entities
         public string UserId { get; set; } = string.Empty;
         public int AccentColor {  get; set; }
         public bool IsDark { get; set; }
+        public string Notes { get; set; } = string.Empty;
     }
 }
