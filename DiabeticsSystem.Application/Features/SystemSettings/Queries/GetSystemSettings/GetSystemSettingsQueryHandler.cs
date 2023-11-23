@@ -10,10 +10,16 @@ using System.Threading.Tasks;
 
 namespace DiabeticsSystem.Application.Features.SystemSettings.Queries.GetSystemSettings
 {
-    public class GetSystemSettingsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : IRequestHandler<GetSystemSettingsQuery, SystemSettingsVM>
+    public class GetSystemSettingsQueryHandler : IRequestHandler<GetSystemSettingsQuery, SystemSettingsVM>
     {
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
-        private readonly IMapper _mapper = mapper;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+
+        public GetSystemSettingsQueryHandler(IUnitOfWork unitOfWork, IMapper mapper)
+        {
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+        }
 
         public async Task<SystemSettingsVM> Handle(GetSystemSettingsQuery request, CancellationToken cancellationToken)
         {
