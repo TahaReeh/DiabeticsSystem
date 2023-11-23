@@ -22,6 +22,7 @@ namespace DiabeticsSystem.API.Controllers
         {
             _mediator = mediator;
             _webHostEnvironment = webHostEnvironment;
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
         }
 
         [HttpGet("GetAllPatientsMovments")]
@@ -71,7 +72,7 @@ namespace DiabeticsSystem.API.Controllers
 
         [HttpGet("ExportAllPatientMovmentsToPDF")]
         [FileResultContentType("application/pdf")]
-        public async Task<FileResult> ExportAllPatientMovmentsToPDF()
+        public async Task<FileContentResult> ExportAllPatientMovmentsToPDF()
         {
             var fileDto = await _mediator.Send(new GetPatientMovementExportQuery()
             {

@@ -44,7 +44,7 @@ namespace DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatie
                 {
                     ContentType = "application/pdf",
                     Data = fileData,
-                    PatientMovementExportFileName = $"{Guid.NewGuid()}.csv"
+                    PatientMovementExportFileName = $"{Guid.NewGuid()}.pdf"
                 };
             }
             return patientExportFileDTO;
