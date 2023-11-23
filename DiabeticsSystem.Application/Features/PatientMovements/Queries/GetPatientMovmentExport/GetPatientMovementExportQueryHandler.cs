@@ -10,15 +10,23 @@ using System.Threading.Tasks;
 
 namespace DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatientMovmentExport
 {
-    public class GetPatientMovementExportQueryHandler(IUnitOfWork unitOfWork,
-        IMapper mapper,
-        ICsvExport csvExport,
-        IRdlcReport rdlcReport) : IRequestHandler<GetPatientMovementExportQuery, PatientMovementExportFileVM>
+    public class GetPatientMovementExportQueryHandler : IRequestHandler<GetPatientMovementExportQuery, PatientMovementExportFileVM>
     {
-        private readonly IUnitOfWork _unitOfWork = unitOfWork;
-        private readonly IMapper _mapper = mapper;
-        private readonly ICsvExport _csvExport = csvExport;
-        private readonly IRdlcReport _rdlcReport = rdlcReport;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
+        private readonly ICsvExport _csvExport;
+        private readonly IRdlcReport _rdlcReport;
+
+        public GetPatientMovementExportQueryHandler(IUnitOfWork unitOfWork,
+            IMapper mapper,
+            ICsvExport csvExport,
+            IRdlcReport rdlcReport)
+        {
+            _unitOfWork = unitOfWork;
+            _mapper = mapper;
+            _csvExport = csvExport;
+            _rdlcReport = rdlcReport;
+        }
 
         public async Task<PatientMovementExportFileVM> Handle(GetPatientMovementExportQuery request, CancellationToken cancellationToken)
         {

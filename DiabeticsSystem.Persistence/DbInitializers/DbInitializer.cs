@@ -7,9 +7,14 @@ using System.Threading.Tasks;
 
 namespace DiabeticsSystem.Persistence.DbInitializers
 {
-    internal class DbInitializer(ApplicationDbContext db) : IDbInitializer
+    internal class DbInitializer : IDbInitializer
     {
-        private readonly ApplicationDbContext _db = db;
+        private readonly ApplicationDbContext _db;
+
+        public DbInitializer(ApplicationDbContext db)
+        {
+            _db = db;
+        }
 
         public async Task InitializeAsync()
         {

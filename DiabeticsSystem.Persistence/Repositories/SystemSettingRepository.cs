@@ -3,8 +3,12 @@ using DiabeticsSystem.Domain.Entities;
 
 namespace DiabeticsSystem.Persistence.Repositories
 {
-    public class SystemSettingRepository(ApplicationDbContext context) : AsyncRepository<SystemSetting>(context), ISystemSettingRepository
+    public class SystemSettingRepository : AsyncRepository<SystemSetting>, ISystemSettingRepository
     {
+        public SystemSettingRepository(ApplicationDbContext context) : base(context)
+        {
+        }
+
         public async Task UpdateAsync(SystemSetting entity, bool Save)
         {
             _context.SystemSettings.Update(entity);
