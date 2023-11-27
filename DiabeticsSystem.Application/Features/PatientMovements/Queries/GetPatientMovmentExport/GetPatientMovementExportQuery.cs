@@ -9,6 +9,7 @@ namespace DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatie
 {
     public class GetPatientMovementExportQuery : IRequest<PatientMovementExportFileVM>
     {
+        public Guid? CustomerId { get; set; } = Guid.Empty;
         public required int ExportType { get; set; }
         public string Path { get; set; } = string.Empty;
     }

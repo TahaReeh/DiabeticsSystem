@@ -63,7 +63,7 @@ namespace DiabeticsSystem.API.Controllers
 
         [HttpGet("ExportPatientMovmentsToCSV")]
         [FileResultContentType("text/csv")]
-        public async Task<FileResult> ExportAllPatientMovments()
+        public async Task<FileResult> ExportAllPatientMovmentsToCSV()
         {
             var fileDto = await _mediator.Send(new GetPatientMovementExportQuery() { ExportType = 1 });
 
@@ -77,6 +77,20 @@ namespace DiabeticsSystem.API.Controllers
             var fileDto = await _mediator.Send(new GetPatientMovementExportQuery()
             {
                 ExportType = 2,
+                Path = $"{_webHostEnvironment.WebRootPath}\\Reports\\PatientMovmentsReport.rdlc"
+            });
+
+            return File(fileDto.Data!, fileDto.ContentType, fileDto.PatientMovementExportFileName);
+        }
+
+        [HttpGet("ExportPatientMovementByCustomerToPDF")]
+        [FileResultContentType("application/pdf")]
+        public async Task<FileContentResult> ExportPatientMovementByCustomerToPDF(Guid customerId)
+        {
+            var fileDto = await _mediator.Send(new GetPatientMovementExportQuery()
+            {
+                CustomerId = customerId,
+                ExportType = 3,
                 Path = $"{_webHostEnvironment.WebRootPath}\\Reports\\PatientMovmentsReport.rdlc"
             });
 

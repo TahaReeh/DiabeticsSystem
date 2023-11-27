@@ -30,32 +30,79 @@ namespace DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatie
 
         public async Task<PatientMovementExportFileVM> Handle(GetPatientMovementExportQuery request, CancellationToken cancellationToken)
         {
-            var allPatientMoves = _mapper.Map<List<PatientMovementExportDTO>>(
-                (await _unitOfWork.PatientMovement.GetAllAsync(includeProperties: "Customer,Product")).OrderBy(x => x.CreatedDate));
 
-            var patientExportFileDTO = new PatientMovementExportFileVM();
+            var PatientMovesObj = (await _unitOfWork.PatientMovement.GetAllAsync(includeProperties: "Customer,Product")).OrderBy(x => x.CreatedDate).ToList();
 
-            if (request.ExportType == 1)
+            List<PatientMovementExportDTO> allPatientMoves = new();
+            PatientMovesObj.ForEach(x =>
             {
-                var fileData = _csvExport.ExportPatientMovementToCsv(allPatientMoves);
-                patientExportFileDTO = new PatientMovementExportFileVM()
+                allPatientMoves.Add(new PatientMovementExportDTO
                 {
-                    ContentType = "text/csv",
-                    Data = fileData,
-                    PatientMovementExportFileName = $"{Guid.NewGuid()}.csv"
-                };
-            }
-            else if (request.ExportType == 2)
+                    Barcode = x.Barcode,
+                    CreatedDate = x.CreatedDate,
+                    CustomerName = x.Customer.Name,
+                    ProductName = x.Product.Name
+                });
+            });
+
+            PatientMovementExportFileVM exportFile = new();
+
+            switch (request.ExportType)
             {
-                var fileData = _rdlcReport.ExportPatientMovementToPDF(request.Path, allPatientMoves);
-                patientExportFileDTO = new PatientMovementExportFileVM()
-                {
-                    ContentType = "application/pdf",
-                    Data = fileData,
-                    PatientMovementExportFileName = $"{Guid.NewGuid()}.pdf"
-                };
+                case 1:
+                    {
+                        var fileData = _csvExport.ExportPatientMovementToCsv(allPatientMoves);
+                        exportFile = new PatientMovementExportFileVM()
+                        {
+                            ContentType = "text/csv",
+                            Data = fileData,
+                            PatientMovementExportFileName = $"{Guid.NewGuid()}.csv"
+                        };
+                        break;
+                    }
+
+                case 2:
+                    {
+                        var fileData = _rdlcReport.ExportAllPatientsMovementToPDF(request.Path, allPatientMoves);
+                        exportFile = new PatientMovementExportFileVM()
+                        {
+                            ContentType = "application/pdf",
+                            Data = fileData,
+                            PatientMovementExportFileName = $"{Guid.NewGuid()}.pdf"
+                        };
+                        break;
+                    }
+
+                case 3:
+                    {
+                        var PatientMovesBuCustomerObj = (await _unitOfWork.PatientMovement.GetAllAsync(u =>
+                            u.CustomerId == request.CustomerId, includeProperties: "Customer")).ToList();
+
+                        List<PatientMovementExportDTO> PatientMoves = new();
+
+                        PatientMovesBuCustomerObj.ForEach(x =>
+                        {
+                            PatientMoves.Add(new PatientMovementExportDTO
+                            {
+                                Barcode = x.Barcode,
+                                CreatedDate = x.CreatedDate,
+                                CustomerName = x.Customer.Name,
+                                ProductName = x.Product.Name
+                            });
+                        });
+
+                        var fileData = _rdlcReport.ExportPatientMovementByCustomerToPDF(request.Path, PatientMoves);
+
+                        exportFile = new PatientMovementExportFileVM()
+                        {
+                            ContentType = "application/pdf",
+                            Data = fileData,
+                            PatientMovementExportFileName = $"{Guid.NewGuid()}.pdf"
+                        };
+                        break;
+                    }
             }
-            return patientExportFileDTO;
+            return exportFile;
         }
 
     }

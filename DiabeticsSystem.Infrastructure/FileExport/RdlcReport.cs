@@ -1,27 +1,40 @@
 ﻿using AspNetCore.Reporting;
 using DiabeticsSystem.Application.Contracts.Infrastructure;
 using DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatientMovmentExport;
-using System.Text;
 
 namespace DiabeticsSystem.Infrastructure.FileExport
 {
-    public class RdlcReport  : IRdlcReport
+    public class RdlcReport : IRdlcReport
     {
-        public byte[] ExportPatientMovementToPDF(string path,List<PatientMovementExportDTO> entity)
-        {
-            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            string mimeType = "";
-            int extension = 1;
+        private readonly string mimeType = "";
+        private readonly int extension = 1;
+        private Dictionary<string, string> Parameter { get; set; } = default!;
 
-            Dictionary<string,string> parameter = new()
+        public byte[] ExportAllPatientsMovementToPDF(string path, List<PatientMovementExportDTO> entity)
+        {
+            Parameter = new()
             {
-                { "paramReportTitle", "Patient Movement" }
+                { "paramReportTitle", "All Patient Movement" }
             };
             LocalReport localReport = new(path);
-            localReport.AddDataSource("DsPatientMovement", entity);
 
-            var result = localReport.Execute(RenderType.Pdf,extension,parameter,mimeType);
-            //[..result.MainStream] ;
+            localReport.AddDataSource("DsPatientMovement2", entity);
+            
+            var result = localReport.Execute(RenderType.Pdf, extension, Parameter, mimeType);
+            return result.MainStream;
+        }
+
+
+        public byte[] ExportPatientMovementByCustomerToPDF(string path, List<PatientMovementExportDTO> entity)
+        {
+            Parameter = new()
+            {
+                { "paramReportTitle", $"{entity.FirstOrDefault()?.CustomerName} Movement" }
+            };
+            LocalReport localReport = new(path);
+            localReport.AddDataSource("DsPatientMovement2", entity);
+
+            var result = localReport.Execute(RenderType.Pdf, extension, Parameter, mimeType);
             return result.MainStream;
         }
     }

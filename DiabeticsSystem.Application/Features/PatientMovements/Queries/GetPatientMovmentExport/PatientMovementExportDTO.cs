@@ -6,7 +6,7 @@ namespace DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatie
     {
         public string? Barcode { get; set; }
         public DateTime CreatedDate { get; set; }
-        public CustomerDTO Customer { get; set; } = default!;
-        public ProductDTO Product { get; set; } = default!;
+        public string? CustomerName { get; set; } = default!;
+        public string? ProductName { get; set; } = default!;
     }
 }

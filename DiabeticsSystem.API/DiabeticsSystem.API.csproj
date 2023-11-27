@@ -14,6 +14,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\Reports\DataSet\DsPatientMovement.Designer.cs" />
+    <Content Remove="wwwroot\Reports\DataSet\DsPatientMovement.xsc" />
+    <Content Remove="wwwroot\Reports\DataSet\DsPatientMovement.xsd" />
+    <Content Remove="wwwroot\Reports\DataSet\DsPatientMovement.xss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="wwwroot\Reports\DataSet\DsPatientMovement.Designer.cs">
+      <DependentUpon>DsPatientMovement.xsd</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.13" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.13">
@@ -31,6 +46,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Reports\DataSet\DsPatientMovement.xsc" />
+    <None Include="wwwroot\Reports\DataSet\DsPatientMovement.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>DsPatientMovement.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+    </None>
+    <None Include="wwwroot\Reports\DataSet\DsPatientMovement.xss" />
     <None Include="wwwroot\Reports\PatientMovmentsReport.rdlc" />
   </ItemGroup>
 

@@ -9,6 +9,7 @@ namespace DiabeticsSystem.Application.Contracts.Infrastructure
 {
     public interface IRdlcReport
     {
-        byte[] ExportPatientMovementToPDF(string path, List<PatientMovementExportDTO> entity);
+        byte[] ExportAllPatientsMovementToPDF(string path, List<PatientMovementExportDTO> entity);
+        byte[] ExportPatientMovementByCustomerToPDF(string path, List<PatientMovementExportDTO> entity);
     }
 }
