@@ -13,7 +13,12 @@ namespace DiabeticsSystem.Persistence
         {
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(configuration.GetConnectionString
-            ("DefaultConnection")));
+            ("DefaultConnection"),
+            options => options.EnableRetryOnFailure(
+                maxRetryCount: 3,
+                maxRetryDelay: TimeSpan.FromSeconds(30),
+                errorNumbersToAdd: null)
+            ));
 
             services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
             services.AddScoped(typeof(IDbInitializer), typeof(DbInitializer));
