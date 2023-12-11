@@ -14,7 +14,7 @@ namespace DiabeticsSystem.Persistence
         public DbSet<Product> Products { get; set; }
         public DbSet<PatientMovement> PatientMovements { get; set; }
         public DbSet<SystemSetting> SystemSettings { get; set; }
-
+        public DbSet<Doctor> Doctors { get; set; }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
@@ -47,6 +47,47 @@ namespace DiabeticsSystem.Persistence
                     IsDark = false,
                     Notes = ""
                 });
+
+            modelBuilder.Entity<Customer>().HasData(
+               new Customer
+               {
+                   Id = Guid.Parse("{B0555D2F-5003-53C1-53A4-EDC53A5C5DD5}"),
+                   Number = "1",
+                   Name = "First Customer",
+                   Phone = "0910000000",
+                   SecondPhone = "0920000000",
+                   Email = "email@evotech.com",
+                   Address = "Address",
+                   PersonalId = "123ABC321",
+                   BirthDate = DateTime.Now.Date,
+                   Sex = 0
+               });
+
+            modelBuilder.Entity<Product>().HasData(
+               new Product
+               {
+                   Id = Guid.Parse("{B0446D2F-4006-46C1-46A4-EDC46A4C6DD4}"),
+                   Number = "1",
+                   Name = "First Product",
+                   Details = "First product details....",
+                   Code = "123ABC321",
+                   Company = "Company Name"
+               });
+
+            modelBuilder.Entity<Doctor>().HasData(
+               new Doctor
+               {
+                   Id = Guid.Parse("{B0777D2F-7001-71C1-71A7-EDC71A1C7DD1}"),
+                   Number = "1",
+                   Name = "First Doctor",
+                   Phone = "0910000000",
+                   SecondPhone = "0920000000",
+                   Email = "email@evotech.com",
+                   Address = "Address",
+                   PersonalId = "123ABC321",
+                   BirthDate = DateTime.Now.Date,
+                   Sex = 0
+               });
         }
     }
 }

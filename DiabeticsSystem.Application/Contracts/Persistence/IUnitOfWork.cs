@@ -12,6 +12,7 @@ namespace DiabeticsSystem.Application.Contracts.Persistence
         IProductRepository Product { get; }
         IPatientMovementRepository PatientMovement { get; }
         ISystemSettingRepository SystemSetting { get; }
+        IDoctorRepository Doctor { get; }
 
         Task SaveAsync();
     }

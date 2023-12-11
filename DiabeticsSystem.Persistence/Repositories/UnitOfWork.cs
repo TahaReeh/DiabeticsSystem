@@ -8,8 +8,8 @@ namespace DiabeticsSystem.Persistence.Repositories
         public ICustomerRepository Customer {  get; private set; }
         public IProductRepository Product { get; private set; }
         public IPatientMovementRepository PatientMovement { get; private set; }
-
         public ISystemSettingRepository SystemSetting { get; private set; }
+        public IDoctorRepository Doctor { get; private set; }
 
         public UnitOfWork(ApplicationDbContext db)
         {
@@ -18,6 +18,7 @@ namespace DiabeticsSystem.Persistence.Repositories
             Product = new ProductRepository(_db);
             PatientMovement = new PatientMovementRepository(_db);
             SystemSetting = new SystemSettingRepository(_db);
+            Doctor = new DoctorRepository(_db);
         }
 
         public async Task SaveAsync()

@@ -3,8 +3,11 @@ using DiabeticsSystem.Application.Features.Customers.Commands.CreateCustomer;
 using DiabeticsSystem.Application.Features.Customers.Commands.UpdateCustomer;
 using DiabeticsSystem.Application.Features.Customers.Queries.GetCustomerDetails;
 using DiabeticsSystem.Application.Features.Customers.Queries.GetCustomerList;
+using DiabeticsSystem.Application.Features.Doctors.Commands.CreateDoctor;
+using DiabeticsSystem.Application.Features.Doctors.Commands.UpdateDoctor;
+using DiabeticsSystem.Application.Features.Doctors.Queries.GetDoctorDetails;
+using DiabeticsSystem.Application.Features.Doctors.Queries.GetDoctorList;
 using DiabeticsSystem.Application.Features.PatientMovements.Commands.CreatePatientMovement;
-using DiabeticsSystem.Application.Features.PatientMovements.Commands.DeletePatientMovement;
 using DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatientMovmentByCustomer;
 using DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatientMovmentExport;
 using DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatientMovmentList;
@@ -42,6 +45,11 @@ namespace DiabeticsSystem.Application.Profiles
 
             CreateMap<SystemSetting, SystemSettingsVM>();
             CreateMap<SystemSetting, UpdateSystemSettingsCommand>().ReverseMap();
+
+            CreateMap<Doctor, DoctorListVM>().ReverseMap();
+            CreateMap<Doctor, DoctorDetailsVM>().ReverseMap();
+            CreateMap<Doctor, CreateDoctorCommand>().ReverseMap();
+            CreateMap<Doctor, UpdateDoctorCommand>().ReverseMap();
         }
 
     }
