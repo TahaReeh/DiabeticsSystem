@@ -8,20 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Services\**" />
-    <Content Remove="Services\**" />
-    <EmbeddedResource Remove="Services\**" />
-    <None Remove="Services\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="wwwroot\Reports\DataSet\DsPatientMovement.Designer.cs" />
-    <Content Remove="wwwroot\Reports\DataSet\DsPatientMovement.xsc" />
-    <Content Remove="wwwroot\Reports\DataSet\DsPatientMovement.xsd" />
-    <Content Remove="wwwroot\Reports\DataSet\DsPatientMovement.xss" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Include="wwwroot\Reports\DataSet\DsPatientMovement.Designer.cs">
       <DependentUpon>DsPatientMovement.xsd</DependentUpon>
       <DesignTime>True</DesignTime>
@@ -44,6 +30,8 @@
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="6.5.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
   </ItemGroup>
 
   <ItemGroup>
