@@ -104,6 +104,7 @@ namespace DiabeticsSystem.Persistence.Migrations
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CustomerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    DoctorId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Barcode = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -118,6 +119,12 @@ namespace DiabeticsSystem.Persistence.Migrations
                         name: "FK_PatientMovements_Customers_CustomerId",
                         column: x => x.CustomerId,
                         principalTable: "Customers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PatientMovements_Doctors_DoctorId",
+                        column: x => x.DoctorId,
+                        principalTable: "Doctors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -154,6 +161,11 @@ namespace DiabeticsSystem.Persistence.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PatientMovements_DoctorId",
+                table: "PatientMovements",
+                column: "DoctorId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PatientMovements_ProductId",
                 table: "PatientMovements",
                 column: "ProductId");
@@ -163,9 +175,6 @@ namespace DiabeticsSystem.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Doctors");
-
-            migrationBuilder.DropTable(
                 name: "PatientMovements");
 
             migrationBuilder.DropTable(
@@ -173,6 +182,9 @@ namespace DiabeticsSystem.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Customers");
+
+            migrationBuilder.DropTable(
+                name: "Doctors");
 
             migrationBuilder.DropTable(
                 name: "Products");

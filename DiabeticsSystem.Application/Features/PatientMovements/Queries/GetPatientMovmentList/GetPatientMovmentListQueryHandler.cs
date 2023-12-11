@@ -22,7 +22,7 @@ namespace DiabeticsSystem.Application.Features.PatientMovements.Queries.GetPatie
 
         public async Task<List<PatientMovmentListVM>> Handle(GetPatientMovmentListQuery request, CancellationToken cancellationToken)
         {
-            var PMovment = await _unitOfWork.PatientMovement.GetAllAsync(includeProperties: "Customer,Product");
+            var PMovment = await _unitOfWork.PatientMovement.GetAllAsync(includeProperties: "Customer,Product,Doctor");
             var dtos = _mapper.Map<List<PatientMovmentListVM>>(PMovment);
 
             return dtos;

@@ -6,6 +6,7 @@ namespace DiabeticsSystem.Application.Features.PatientMovements.Commands.CreateP
     {
         public Guid CustomerId { get; set; }
         public Guid ProductId { get; set; }
+        public Guid DoctorId { get; set; }
         public string? Barcode { get; set; }
     }
 }

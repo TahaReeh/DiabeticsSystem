@@ -7,5 +7,6 @@
         public DateTime CreatedDate { get; set; }
         public CustomerDTO Customer { get; set; } = default!;
         public ProductDTO Product { get; set; } = default!;
+        public DoctorDTO Doctor { get; set; } = default!;
     }
 }

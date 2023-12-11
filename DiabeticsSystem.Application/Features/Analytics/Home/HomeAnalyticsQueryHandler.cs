@@ -21,12 +21,14 @@ namespace DiabeticsSystem.Application.Features.Analytics.Home
             var customerCount = (await _unitOfWork.Customer.GetAllAsync()).Count();
             var productCount = (await _unitOfWork.Product.GetAllAsync()).Count();
             var patientMovesCount = _unitOfWork.PatientMovement.GetAllAsync().GetAwaiter().GetResult().Count();
+            var doctorCount = (await _unitOfWork.Doctor.GetAllAsync()).Count();
             HomeAnalyticsVM homeAnalytics = new()
             {
                 CustomerCount = customerCount.ToString(),
                 ProductCount = productCount.ToString(),
                 PatientMovesCount = patientMovesCount.ToString(),
-                UsersCount = "1"
+                UsersCount = "1",
+                DoctorsCount = doctorCount.ToString(),
             };
 
             return homeAnalytics;

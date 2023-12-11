@@ -8,6 +8,7 @@ namespace DiabeticsSystem.Domain.Entities
         public Guid Id { get; set; }
         public Guid CustomerId { get; set; }
         public Guid ProductId { get; set; }
+        public Guid DoctorId { get; set; }
         public string? Barcode { get; set; }
 
         [ForeignKey(nameof(CustomerId))]
@@ -15,5 +16,8 @@ namespace DiabeticsSystem.Domain.Entities
 
         [ForeignKey(nameof(ProductId))]
         public Product Product { get; set; } = default!;
+
+        [ForeignKey(nameof(DoctorId))]
+        public Doctor Doctor { get; set; } = default!;
     }
 }

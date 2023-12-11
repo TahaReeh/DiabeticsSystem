@@ -189,6 +189,9 @@ namespace DiabeticsSystem.Persistence.Migrations
                     b.Property<DateTime?>("DeactivatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("LastModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -201,6 +204,8 @@ namespace DiabeticsSystem.Persistence.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
+
+                    b.HasIndex("DoctorId");
 
                     b.HasIndex("ProductId");
 
@@ -308,6 +313,12 @@ namespace DiabeticsSystem.Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("DiabeticsSystem.Domain.Entities.Doctor", "Doctor")
+                        .WithMany()
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("DiabeticsSystem.Domain.Entities.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId")
@@ -315,6 +326,8 @@ namespace DiabeticsSystem.Persistence.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
+
+                    b.Navigation("Doctor");
 
                     b.Navigation("Product");
                 });

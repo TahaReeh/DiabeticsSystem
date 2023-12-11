@@ -50,6 +50,7 @@ namespace DiabeticsSystem.Application.Profiles
             CreateMap<Doctor, DoctorDetailsVM>().ReverseMap();
             CreateMap<Doctor, CreateDoctorCommand>().ReverseMap();
             CreateMap<Doctor, UpdateDoctorCommand>().ReverseMap();
+            CreateMap<Doctor, DoctorDTO>().ReverseMap();
         }
 
     }

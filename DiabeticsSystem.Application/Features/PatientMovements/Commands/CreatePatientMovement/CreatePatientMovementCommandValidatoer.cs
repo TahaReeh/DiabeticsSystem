@@ -8,6 +8,7 @@ namespace DiabeticsSystem.Application.Features.PatientMovements.Commands.CreateP
         {
             RuleFor(u=>u.CustomerId).NotEmpty().NotNull();
             RuleFor(u=>u.ProductId).NotEmpty().NotNull();
+            RuleFor(u=>u.DoctorId).NotEmpty().NotNull();
         }
     }
 }
