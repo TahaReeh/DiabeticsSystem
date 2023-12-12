@@ -36,13 +36,7 @@
 
   <ItemGroup>
     <None Include="wwwroot\Reports\DataSet\DsPatientMovement.xsc" />
-    <None Include="wwwroot\Reports\DataSet\DsPatientMovement.xsd">
-      <SubType>Designer</SubType>
-      <LastGenOutput>DsPatientMovement.Designer.cs</LastGenOutput>
-      <Generator>MSDataSetGenerator</Generator>
-    </None>
     <None Include="wwwroot\Reports\DataSet\DsPatientMovement.xss" />
-    <None Include="wwwroot\Reports\PatientMovmentsReport.rdlc" />
   </ItemGroup>
 
   <ItemGroup>
@@ -53,6 +47,18 @@
 
   <ItemGroup>
     <Folder Include="logs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\Reports\DataSet\DsPatientMovement.xsd">
+      <SubType>Designer</SubType>
+      <LastGenOutput>DsPatientMovement.Designer.cs</LastGenOutput>
+      <Generator>MSDataSetGenerator</Generator>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Reports\PatientMovmentsReport.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
