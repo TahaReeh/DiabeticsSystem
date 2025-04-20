@@ -35,12 +35,17 @@ namespace DiabeticsSystem.API
 
         public static WebApplication ConfigurePipeline(this WebApplication app)
         {
+            app.UseStaticFiles();
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
-
+                app.UseSwaggerUI(c =>
+                {
+                    c.EnableTryItOutByDefault();
+                    c.InjectStylesheet("/swagger-ui/SwaggerDark.css");
+                });
             }
+
             app.UseHttpsRedirection();
             app.UseRouting();
             //app.UseAuthentication();
@@ -84,8 +89,6 @@ namespace DiabeticsSystem.API
                 var logger = scope.ServiceProvider.GetRequiredService<ILogger>();
                 logger.LogError(ex, "An error occurred while migrating the database.");
             }
-            
-             
         }
 
     }
